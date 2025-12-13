@@ -1,0 +1,33 @@
+name: React to Push
+
+on:
+  push:
+    branches:
+      - main # lub inna gałąź, którą chcesz monitorować
+    # Możesz również dodać inne opcje, np.:
+    # paths:
+    #   - 'src/**' # Tylko zmiany w folderze src
+    # tags:
+    #   - 'v*' # Zareaguj tylko na push tagów zaczynających się na v
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'  # lub inna wersja Node.js
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
+
+    - name: Build project
+      run: npm run build
