@@ -1,33 +1,23 @@
-name: React to Push
+name: Simple Push Workflow
 
 on:
   push:
     branches:
-      - main # lub inna gałąź, którą chcesz monitorować
-    # Możesz również dodać inne opcje, np.:
-    # paths:
-    #   - 'src/**' # Tylko zmiany w folderze src
-    # tags:
-    #   - 'v*' # Zareaguj tylko na push tagów zaczynających się na v
+      - main # Może być również inna gałąź, np. 'develop'
 
 jobs:
-  build:
+  simple_job:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '14'  # lub inna wersja Node.js
+    - name: Display the directory structure
+      run: ls -alh  # Wyświetla strukturę katalogów w repozytorium
 
-    - name: Install dependencies
-      run: npm install
+    - name: Run a simple echo command
+      run: echo "Push detected! Workflow is running."
 
-    - name: Run tests
-      run: npm test
-
-    - name: Build project
-      run: npm run build
+    - name: Display the current working directory
+      run: pwd  # Wyświetla ścieżkę bieżącego katalogu roboczego
