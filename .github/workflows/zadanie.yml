@@ -40,11 +40,12 @@ jobs:
         with:
           server_address: "mail.abix.info.pl"
           server_port: "465"
+          secure: true
           username: "alx-kurs@abix.info.pl"
           password: "74a93d0649cc71c05759c301b5c50b1c"
           subject: "Repo workflow notification"
           to: "adam@jurkiewicz.tech"
-          from: "sanecki.grzegorz@gmail.com"
+          from: "alx-kurs@abix.info.pl"
           body: |
             Workflow został uruchomiony z repozytorium:
             ${{ github.repository }}
