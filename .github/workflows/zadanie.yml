@@ -10,15 +10,31 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # Krok 1: testowe logowanie do SSH hasłem
+      - name: Test SSH connection
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: "4.210.108.59"
+          username: "kurs"
+          password: "3Szkolenie.admin2"
+          port: 22
+          script: |
+            echo "Połączenie SSH działa poprawnie"
+            hostname
+            whoami
+
+      # Krok 2: właściwe polecenie ls -la
       - name: Run ls -la on remote host
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: "4.210.108.59"
           username: "kurs"
-          key: |
+          password: "3Szkolenie.admin2"
+          port: 22
           script: |
             ls -la
 
+      # Krok 3: wysyłka maila
       - name: Send email with repo name
         uses: dawidd6/action-send-mail@v3
         with:
@@ -28,7 +44,7 @@ jobs:
           password: "74a93d0649cc71c05759c301b5c50b1c"
           subject: "Repo workflow notification"
           to: "adam@jurkiewicz.tech"
-          from: "ci@demo.com"
+          from: "sanecki.grzegorz@gmail.com"
           body: |
             Workflow został uruchomiony z repozytorium:
             ${{ github.repository }}
