@@ -1,0 +1,34 @@
+name: Remote ls and send mail
+
+on:
+  workflow_dispatch:
+
+jobs:
+  remote-ls:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run ls -la on remote host
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: "4.210.108.59"
+          username: "kurs"
+          key: |
+          script: |
+            ls -la
+
+      - name: Send email with repo name
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: "mail.abix.info.pl"
+          server_port: "465"
+          username: "alx-kurs@abix.info.pl"
+          password: "74a93d0649cc71c05759c301b5c50b1c"
+          subject: "Repo workflow notification"
+          to: "adam@jurkiewicz.tech"
+          from: "ci@demo.com"
+          body: |
+            Workflow został uruchomiony z repozytorium:
+            ${{ github.repository }}
